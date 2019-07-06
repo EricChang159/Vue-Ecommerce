@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,IAAI,CAAA;EACA,KAAK,EAAC,GAAG;EACT,OAAO,EAAC,CAAC;CACZ",
+    "sources": [
+        "c:/Users/ERIC/Desktop/vue-Ecommerce/src/styles/css/header.scss"
+    ],
+    "names": [],
+    "file": "header.css"
+}
