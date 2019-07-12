@@ -1,0 +1,17 @@
+v-bind img 部分
+可以用/ / /來增加內連路徑，
+也可以用'vue變數 + vue變數'
+也可以利用三元運算子賦值，ex:
+<img v-attr="src: sex=='male'?'images/male.png':'images/female.png'">
+與可以用 filter方法
+
+<img v-attr="src: sex | isM">
+filters: {
+            isM: function (val) {
+                 return val == 'male' ? 'images/male.png' : 'images/female.pn'
+            }
+        }
+
+不像 class一樣 有這種內建判斷式
+<div :class="{male : ismale}" >
+官網很詳細 可以多去看看

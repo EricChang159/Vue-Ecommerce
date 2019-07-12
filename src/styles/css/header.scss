@@ -4,13 +4,18 @@ $icon-height: 25px;
 //  vertical-align: middle;
 //  margin:0 auto;
 //  align-items:center;
-
+ 
 #header {
     padding: 0 32.5px;
 }
+.mobile-nav-bar {
+ position: absolute;
+ left:-990px;    
+}
 .header-icon-left,
 .header-bar-middle,
-.header-icon-right {
+.header-icon-right{
+                 
     height:44px;
     display:flex;
     span {
@@ -26,48 +31,38 @@ $icon-height: 25px;
 .header-bar-middle {
 
 }
-
-.second-header-bar {
-    align-items: center;
-    height: 101px;
+.header-second-bar{
     .logo {
         font-size: 35px;
         font-family: Arial, Helvetica, sans-serif;
+        min-width:152px;
         padding-left: 10px;
         a:hover {
             text-decoration: none;
         }
     }
-    .header-shop-menu {
-        ul {
-            display: flex;
-            margin : 15px 0 0 0;
-            height:40px;
-            align-items:center;
-            li {
-                height:inherit;
-                margin: 0px auto;
-            }
-        }
-    }
+    
     .header-search-bar {
         display:flex;
-        width:80%;
-        height:30px;
-        padding-right:5px;
-        img {
+        input{
+            width:500px
+        }
+        .search-icon {
             width:30px;
             height:30px;
-            margin-left:10px
-        }
+        }   
+        
     }   
-
+    
 }
+
 .header-promote {
     text-align: center;
     font-weight: bold;
     font-size: 17px;
     height:30px;
+    z-index: 1;
+    
 }
 
 .header-backgrouund {
@@ -75,14 +70,16 @@ $icon-height: 25px;
     background-repeat: no-repeat;
     background-size: cover;
     display:flex;
-    padding:40px;
+    padding:40px 0 0 ;
+    z-index:0;
+    // display:none;
 
     .header-shopnow{
         position: relative;
         top:40px;
         flex:2 3;
         height:500px;
-        z-index:2; 
+        z-index: -1;
 
         .header-shopnow-conten{
             position: relative;
@@ -95,43 +92,78 @@ $icon-height: 25px;
             font-size: 60px;
             font-family:Eksell;
             text-align: center;
+            
             }
         }
     }
     .header-content-photo {
         flex:1 1 200px; 
         overflow: hidden;
+
         width: 400px;
         height:590px;
-        z-index:1;
+        z-index:-1;
         img {
-            transform:translateX(-80px)
+            transform:translateX(-80px);
+            z-index:-1;
         }
     }
 
 
     
 }
-@media screen and (max-width:995px){
+@media screen and (max-width:992px){
     .header-icon-left,
     .header-icon-right,
-    .header-shop-menu  {
-        display:none;
+    .header-shop-menu,
+    .header-menu-bar,
+    .menu-component
+     {
+        display: none;
     }
-    .header-bar-middle {
-        position: relative;
+    .header-bar {
+        transform: translateY(95px)
+       
     }
 
     .header-search-bar {
-        position: relative;
-       flex:1 1 30%;
-       width:100%; 
+        transform: translateY(-35px)
     }
-    .header-menu-bar, .logo{
-        position: relative;
+
+    .mobile-nav-bar {
+        display: flex;
+        position:fixed;
+        left:0;
         width:100%;
-       text-align: center;
+        height:60px;
+        .logo   {
+            flex:1 1 200px;
+            text-align: center;
+            font-size: 30px;
+            padding-top:5px;
+        }
+
+        #header-cart-icon {
+            flex:1 1;
+            width:50px;
+            height:50px;
+            text-align: right;
+            padding-right:30px;
+            img {
+            width:50px;
+            height:50px;
+            }
+
+        }
+        #mobile-menu-icon {
+            flex:1 1;
+            font-size: 40px;
+            padding:0 0 0 20px;
+
+        }
     }
+    
+    
 
 
     
@@ -147,12 +179,10 @@ $icon-height: 25px;
         height:700px;
         padding:0;
         margin:0;
-        
         .header-shopnow {
             position: relative;
             text-align: center;
             font-size: 15px;
-            top:0;
             width:100%;
             min-width:320px;
             height: 600px;

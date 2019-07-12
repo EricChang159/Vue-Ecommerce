@@ -1,29 +1,42 @@
 <template>
     <div id="app">
-        <Header></Header>
-     
+            <!-- <HeaderBar></HeaderBar> -->
+            <router-link to = '/' >to head</router-link>
+            <br>
+            <router-link to = '/shoppingcenter/items' >to shoppingcenter/items</router-link>
+            <br>
+            <router-link to = '/shoppingcenter/cart' >to shopping/cart</router-link>
+            <router-link to = '/shoppingcenter' >to shopping</router-link>
+            <router-view />
+
     </div>
 </template>
 
 <script>
-import Header from './Home/header.vue'
+import HeaderBar from './Home/header/header-fixbar.vue'
 
 export default {
     name:"app",
     components:{
-        Header,
+        HeaderBar,
     },
     data(){
         return {
         }
     },
     metaInfo:{
-        head:"<meta name='viewport' content='width=device-width, initial-scale=1.0' />"
-    }
-    
+        meta:[{
+            name: "viewport",
+            content: ''
+        }]
+
+    },
+   
 }
 </script>
 <style lang="css">
-
+#app{
+    z-index: -10;
+}
 
 </style>
