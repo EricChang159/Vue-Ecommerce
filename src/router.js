@@ -6,7 +6,13 @@ Vue.use(Router)
 export default new Router({
     mode: 'history',
     linkActiveClass: "active",
-    routes: [{
+    routes: [
+        {
+        path: '/',
+        name: 'carousel',
+        component: () => import('./components/Home/header/carousel.vue')
+        },
+        {
             path: '/',
             name: 'header',
             component: () => import('./components/Home/header/header.vue')
@@ -28,6 +34,11 @@ export default new Router({
                 }
             ]
         },
+        //     {
+        //     path: '/',
+        //     name: 'practice',
+        //     component: () => import('./components/Home/practice.vue')
+        // }
 
 
 

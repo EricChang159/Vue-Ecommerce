@@ -1,12 +1,16 @@
 <template>
     <div id="cart">
         <router-view />
-        <div class="row bg-light">
-
-                <div class="col-xl-4" v-for="(items,index) in datafromFather" :key="index" v-show="index < 21">
+        <div class="container-fluid">
+                <div class="row bg-light">
+                        <div class="col-md-12 no-items" v-show="datafromFather.length < 1" >there is no item in your cart</div>
+                    </div>
+        <div class="row bg-light " v-for="(items,index) in datafromFather" :key="index" >
+               
+                <div class="col-md-6" >
                     <div class="product-box">
                         <div class="img-icon">
-
+                            <div class="cancel-selected" @click='cancelSelected(index)'>X</div>
                             <img class="not-selected" 
                             :src="imagePath + items.poster_path" 
                             alt="product-photo"
@@ -26,16 +30,20 @@
 
                         <ul class="product-inf">
                             <li>{{items.title}}</li>
-                            <li>Release date:</li>
+                            <li>Release date :</li>
                             <li>{{items.release_date}}</li>
                             <!-- <li>Runtime:</li> -->
                             <!-- <li>Genres:</li> -->
-                            <li>vote_average</li>
-                            <li>#####</li>
+                            <li>vote_average : {{items.vote_average}}</li>
+                            <span class="ratings">
+                            <li class="empty-stars"></li>
+                            <li class="full-stars" :style="{width:items.vote_average/10*100+'%'}"></li>
+                            </span>
                             <div>
-                                <button @click="changeQuantity(items,1)">+</button>
-                                <input type="text" v-model="items.quantity" placeholder="1">
-                                <button @click="changeQuantity(items,-1)">-</button>
+                                <button class="btn btn-success mr-2" @click="changeQuantity(items,1)">+</button>
+                                <input class="form-control col-3 align-items-center" type="text" v-model="items.quantity" readonly>
+                                <button class="btn btn-success ml-2" @click="changeQuantity(items,-1)">-</button>
+
 
                             </div>
 
@@ -43,6 +51,11 @@
 
                     </div>
                 </div>
+                <div class="col-md-6 product-story">
+                     <p><b style="font-size:20px;">story : </b> {{items.overview}} </p>
+                </div>
+                
+        </div>
     </div>
 </div>
 </template>
@@ -68,6 +81,10 @@ export default {
                     items.quantity = 1
                 }
             },
+            cancelSelected(index){
+                this.datafromFather.splice(index,1)
+            
+            }
           
         },
         mounted() {

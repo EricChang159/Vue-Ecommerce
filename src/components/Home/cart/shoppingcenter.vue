@@ -2,9 +2,8 @@
     <div id="shoppingcenter">
             <!-- {{choose}} -->
          
-        <router-view @sendData='getData' :datafromFather="choose"/>
+        <router-view @sendData='getData' :datafromFather="choose"  />
         <!-- <button class="btn btn-outline-primary" @click="getData">getData</button> -->
-
     </div>
 </template>
 <script>
@@ -12,14 +11,17 @@ export default {
     data(){
         return{
             choose:'', 
+            movieDataBase:[],
         }
     },
     methods:{ 
          getData(data){
         this.choose = data
-        console.log(this.choose)
-        }
+        },
    
-    }
+    },
+    mounted() {
+        window.vue=this
+    },
 }
 </script>

@@ -5,7 +5,7 @@
 			<div class="mobile-nav-bar">
 				<span id="mobile-menu-icon"><a href="#">☰</a></span>
 				<div class="logo"><a href="#">The Best</a></div>
-				<div id="header-cart-icon"><a href="#"><img src="../../../image/header-shopping-carticon.png"></a></div>
+				<div id="header-cart-icon"><a href="#"><img src="../../../image/header-shopping-carticon.jpg"></a></div>
 			</div>
 			<div class="row header-bar">
 				<div class="col-md-3 bg-light header-icon-left">
@@ -24,7 +24,7 @@
 					<span><a href="#"><img src="../../../image/header-man-icon.png"></a></span>
 					<span><a href="#"><img src="../../../image/header-shopping-icon.png"></a></span>
 					<span>
-                            <router-link to="cart"> <a href="../cart/cart"><img src="../../../image/header-shopping-carticon.png">
+                            <router-link to="cart"> <a href="../cart/cart"><img src="../../../image/header-shopping-carticon.jpg">
                         </a></router-link></span>
 				</div>
 

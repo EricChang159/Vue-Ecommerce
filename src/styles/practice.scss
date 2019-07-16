@@ -1,0 +1,42 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+.content-box{
+    padding:20px 10px;
+    & > *{
+        margin-bottom:20px; 
+        
+    }
+    .heightLight{
+        background:#f24;
+        color:white;
+        margin:5px;
+    }
+    .innerbox{
+      border:1px solid;
+      padding:10px 15px;
+      overflow: hidden;
+      p{
+          font-size:15px;
+          line-height: 20px;
+      }
+      img{
+          width:250px;
+        height:150px;
+        background-size: cover;
+        margin-left:-15px;
+        margin-right:-15px;
+        margin-top:-10px;
+        margin-bottom: 15px;    
+    }
+   
+    }
+    h4 {
+    font-weight: bold;
+    font-size:22px;
+    line-height:30px;
+    }
+}
+

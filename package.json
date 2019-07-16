@@ -48,6 +48,8 @@
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
-    "url-loader": "^2.0.1"
+    "url-loader": "^2.0.1",
+    "vue-carousel": "^0.18.0",
+    "vue-carousel-3d": "^0.2.0"
   }
 }
