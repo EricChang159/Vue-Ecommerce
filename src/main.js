@@ -6,6 +6,7 @@ import Carousel3d from 'vue-carousel-3d'
 
 import Axios from 'axios'
 import VueAxios from 'vue-axios'
+// import storeConfig from './store'
 
 
 import './styles/reset.css'
@@ -15,6 +16,10 @@ import './styles/css/header-css/menu.scss'
 import './styles/css/cart.scss'
 import './styles/practice.scss'
 
+import $ from 'jquery'
+import './styles/js/bootstraps/bootstrap.min'
+
+// Vue.use($)
 Vue.use(Carousel3d)
 Vue.use(VueAxios, Axios)
 Vue.use(VueMeta)
@@ -26,5 +31,6 @@ Vue.config.productionTip = false
 new Vue({
     router: router,
     render: h => h(App),
+    // store,
 
 }).$mount(root)

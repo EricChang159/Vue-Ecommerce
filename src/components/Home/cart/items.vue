@@ -4,7 +4,7 @@
 空白不行 - 也不行，少做一個，按照順序排名的BAR要且要略過冠詞
 -->
         
-        <div class="container-fluid">
+        <div class="container-fluid bg-light">
             
             <router-view  />
             <router-link to="/shoppingcenter/cart">
@@ -14,7 +14,7 @@
                 </div>
             </router-link>
             
-            <div class="row bg-light">
+            <div class="row ">
                 <div class="col-md-12">
                     <ul class="nav nav-tabs mt-2 mb-3 ">
                     <li class="nav-item">
@@ -33,17 +33,13 @@
                     <li>
                          <form class="form-inline   ml-auto mr-auto">
                             <input v-model="keyWord" type="text" placeholder="Search" class="form-control ml-2 mr-2" aria-label="search">
-                            <!-- <button @click.prevent="clickme" type="submit" class="btn btn-outline-success ">Search</button> -->
                          </form> 
                     </li>
                   </ul>
-                  <div>{{keyWord}}</div>
                 </div>
-                
-
             </div>
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-12 bg-light">
                         <button class="btn btn-outline-success mr-2" @click="selectedAll(1)">Select All</button>
                         <button class="btn btn-outline-success" @click="selectedAll(-1)">Cancel All</button>
                 </div>
@@ -51,26 +47,25 @@
             <div class="row bg-light">
 
                 <div class="col-xl-4" v-for="(items,index) in keyWordSearch" 
+                v-show ="index < dataLimit"
                 :key="index" >
-                        <button @click.prevent="clickme" type="submit" class="btn btn-outline-success ">Search</button>
 
                     <div class="product-box">
                         <div class="img-icon">
 
                             <img class="not-selected" 
                             :src="imagePath + items.poster_path" 
-                            alt="product-photo"
+                            :alt="items.isPhotoSelected"
                             :class="[items.isPhotoSelected? 'selected':'']"
                             @click="beSelected(items)">
+                            
+                        <div class="show-type">
 
-                            <div class="show-type">
-
-                                <span class="not-choose" :class="[items.isChooseShowType? 'ischoose':'']" @click="chooseShowType(items)">3D</a></span>
-                                <span class="not-choose" :class="[items.isChooseShowType? 'ischoose':'']" @click="chooseShowType(items)">4D</span>
-                                <span class="not-choose" :class="[items.isChooseShowType? 'ischoose':'']" @click="chooseShowType(items)">IMAX</span>
-                                <span class="not-choose" :class="[items.isChooseShowType? 'ischoose':'']" @click="chooseShowType(items)">GC</span>
-
+                            <div v-for="(type,index) in types" :key="index">
+                                <span class="not-choose" :class="[items.activeTypes && items.activeTypes.includes(type)? 'ischoose':'']" @click="chooseShowType(items, type)">{{type}}</a></span>
                             </div>
+
+                        </div>
                         </div>
 
 
@@ -91,19 +86,22 @@
                                 <button class="btn btn-success ml-2" @click="changeQuantity(items,-1)">-</button>
 
                             </div>
+                            
 
                         </ul>
-
+                        
                     </div>
+                   
                 </div>
-                <div class="row">
-                    <div class="col-12 bg-light justify-content-center btn-showmore">
-                        <button class="btn btn-outline-primary ">SHOW MORE</button>
-                    </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-12 bg-light btn-showmore">
+                    <button class="btn btn-outline-primary show-more-data" @click="showMore(-1)">Hide</button>
+                    <button class="btn btn-outline-primary show-more-data" @click="showMore(1)">Show More</button>
                 </div>
             </div>
-
-
+            
         </div>
 
     </div>
@@ -112,6 +110,8 @@
     export default {
         data() {
             return {
+                types: ['2D', '3D', 'IMAX'],
+                update:false,
                 moviePage1: '',
                 moviePage2: '',
                 movieRank1: [],
@@ -122,22 +122,24 @@
                 chooseData:[],
                 tabType:'popularity',
                 keyWord:'',
-                cloneMovieRank1:'',
+                dataLimit:'9'
+                // cloneMovieRank1:'',
             }
         },
         computed: {
             
             keyWordSearch(){
-                this.cloneMovieRank1 = JSON.parse(JSON.stringify(this.movieRank1))
-                this.cloneMovieRank1.filter(a=>{
+                 var  tempMovieRank1 = JSON.parse(JSON.stringify(this.movieRank1))
+                 console.log('keyWordSearch')
+                  return  tempMovieRank1.filter(a=>{
                     var tags = ['title', 'release_date']
                     var flag = false
-                    tags.map(tag=>{
+                    tags.forEach(tag=>{
                         //這邊的toLowerCase可以看成放寬條件，大小寫小都給過，因為全部都換成小寫了，
                         //之後再this.keyWord就把大寫又拉回來了
                         //new RegExp中的i係數為忽略大小寫選取   !==" "中間要空白
                         var x = a[tag]
-                        if(a[tag].toLowerCase().indexOf(this.keyWord)!= -1 && this.keyWord !== ' '){
+                        if(this.update || a[tag].toLowerCase().indexOf(this.keyWord)!= -1 && this.keyWord !== ' '){
                         var matchWord = a[tag].match(new RegExp(this.keyWord,'i'))
                         var lowerKeyWord = new RegExp(this.keyWord,'i')
                          a[tag] = a[tag].replace(lowerKeyWord,`<span class= highLight>${matchWord}</span>`)
@@ -145,32 +147,80 @@
                         }
                     })
                         return flag
-                })
-              return  this.movieRank1 = JSON.parse(JSON.stringify(this.cloneMovieRank1))
-            }
+                })              
+            },
+            
+
         },
         methods: {
-           clickme(items){
+            showMore(way){
+               if(way>0){
+                this.dataLimit = this.dataLimit+9
+               }else{
+                this.dataLimit = 9
+               }
+               
+            },
+            chooseShowType(items, type) {
+                const id = items.id;
+                const itemIndex = this.movieRank1.findIndex(a => a.id === id);
+                const newItems = this.movieRank1[itemIndex];
+                const newMovieRank1 = this.movieRank1.slice();
+                
+                if (!newItems.activeTypes) {
+                    newMovieRank1[itemIndex].activeTypes = [type];
+                }else{
+                    newMovieRank1[itemIndex].activeTypes = []
+                    newMovieRank1[itemIndex].activeTypes.push(type);
+                }
+                
+                if(newItems.activeTypes != undefined){
+                    newItems.isPhotoSelected = true
+                }
+                this.movieRank1 = newMovieRank1;
+                console.log(newItems.activeTypes)
+                console.log(newItems.activeTypes.includes(type))
+
+            },
+           clickme(items){  
             //    console.log(this.keyWordSearch)
                console.log(items)
            },
             beSelected(items) {
-               if(typeof items.isPhotoSelected == 'undefined'){
-                   this.$set(items,'isPhotoSelected','false')
-                   items.isPhotoSelected = false
+    
+               const id = items.id
+               const newMovieRank1 = this.movieRank1.slice()
+               const itemIndex = this.movieRank1.findIndex(a => a.id === id)
+               const movieItem = newMovieRank1[itemIndex]
+               console.log(itemIndex)
+               if(!movieItem.isPhotoSelected){
+                movieItem.isPhotoSelected = true
+                   console.log(movieItem.isPhotoSelected)
+               }else{
+                movieItem.isPhotoSelected = !movieItem.isPhotoSelected
                }
-               items.isPhotoSelected = !items.isPhotoSelected 
+
+               if(movieItem.isPhotoSelected == false){
+                movieItem.activeTypes = []
+               }
+               this.movieRank1 = newMovieRank1
             },
             
             
             changeQuantity(items,way){
-                if(typeof (items.quantity) == 'undefined' ){
-                    this.$set(items,'quantity', 0)
+                // 用set方法插入，
+                const id = items.id
+                const newMovieRank1 = this.movieRank1.slice()
+                const itemIndex = newMovieRank1.findIndex(a => a.id === id)
+
+                if(typeof (newMovieRank1[itemIndex].quantity) == 'undefined' ){
+                    this.$set(newMovieRank1[itemIndex],'quantity', 0)
                 }
-                way < 0 ? items.quantity-- : items.quantity++
-                if (items.quantity < 1){
-                    items.quantity = 1
+                way < 0 ? newMovieRank1[itemIndex].quantity-- : newMovieRank1[itemIndex].quantity++
+                if (newMovieRank1[itemIndex].quantity < 1){
+                    newMovieRank1[itemIndex].quantity = 1
                 }
+                this.movieRank1 = newMovieRank1
             },
             selectedAll(way){
                 this.movieRank1.forEach(a=>{

@@ -2,7 +2,7 @@
     <div id="shoppingcenter">
             <!-- {{choose}} -->
          
-        <router-view @sendData='getData' :datafromFather="choose"  />
+        <router-view @sendData='getData' :datafromFather="choose" :movieData="movies" />
         <!-- <button class="btn btn-outline-primary" @click="getData">getData</button> -->
     </div>
 </template>
@@ -14,6 +14,7 @@ export default {
             movieDataBase:[],
         }
     },
+    props:['movies'],
     methods:{ 
          getData(data){
         this.choose = data

@@ -2,10 +2,17 @@
     <div id="cart">
         <router-view />
         <div class="container-fluid">
-                <div class="row bg-light">
-                        <div class="col-md-12 no-items" v-show="datafromFather.length < 1" >there is no item in your cart</div>
+                <div class="row bg-light no-items" v-show="datafromFather.length < 1" >
+                        <div class="col-md-12 " >there is no item in your cart</div>
+                        <router-link to="/shoppingcenter/items">
+                            <div>Get Some Of Your Favorite Movie</div>
+                            <img v-for="(poster,index) in randomPoster"  
+                                    :key="index"
+                            :src="imagePath + poster" >
+                            
+                        </router-link>                        
                     </div>
-        <div class="row bg-light " v-for="(items,index) in datafromFather" :key="index" >
+        <div class="row bg-light " v-for="(items,index) in newDatafromFather" :key="index" >
                
                 <div class="col-md-6" >
                     <div class="product-box">
@@ -19,11 +26,10 @@
 
                             <div class="show-type">
 
-                                <span class="not-choose" :class="[items.isChooseShowType? 'ischoose':'']" >3D</a></span>
-                                <span class="not-choose" :class="[items.isChooseShowType? 'ischoose':'']" >4D</span>
-                                <span class="not-choose" :class="[items.isChooseShowType? 'ischoose':'']" >IMAX</span>
-                                <span class="not-choose" :class="[items.isChooseShowType? 'ischoose':'']" >GC</span>
-
+                                <div v-for="(type,index) in types" :key="index">
+                                    <span class="not-choose" :class="[items.activeTypes && items.activeTypes.includes(type)? 'ischoose':'']" @click="chooseShowType(items, type)">{{type}}</a></span>
+                                </div>
+    
                             </div>
                         </div>
 
@@ -39,7 +45,7 @@
                             <li class="empty-stars"></li>
                             <li class="full-stars" :style="{width:items.vote_average/10*100+'%'}"></li>
                             </span>
-                            <div>
+                            <div class="cart-quantity">
                                 <button class="btn btn-success mr-2" @click="changeQuantity(items,1)">+</button>
                                 <input class="form-control col-3 align-items-center" type="text" v-model="items.quantity" readonly>
                                 <button class="btn btn-success ml-2" @click="changeQuantity(items,-1)">-</button>
@@ -66,10 +72,14 @@ export default {
                 imagePath: 'https://image.tmdb.org/t/p/w500',
                 quantity: 0,
                 selected: false,
+                types: ['2D', '3D', 'IMAX'],
+                newDatafromFather:'',
+                
             }
         },
         props:[
-            'datafromFather'
+            'datafromFather',
+            'movieData',
         ],
         methods:{
             changeQuantity(items,way){
@@ -80,15 +90,55 @@ export default {
                 if (items.quantity < 1){
                     items.quantity = 1
                 }
+                // console.log(this.newDatafromFather)
             },
             cancelSelected(index){
-                this.datafromFather.splice(index,1)
+                this.newDatafromFather.splice(index,1)
             
-            }
+            },
+            chooseShowType(items, type) {
+                const id = items.id;
+                const itemIndex = this.newDatafromFather.findIndex(a => a.id === id);
+                const newMovieRank1 = this.datafromFather.slice();
+                const newItems = newMovieRank1[itemIndex];
+
+                // if (!newMovieRank1[itemIndex].activeTypes) {
+                    this.$set(newItems,'activeTypes',[type])
+                    
+                // }else{
+                //     newMovieRank1[itemIndex].activeTypes = []
+                //     this.$set(newMovieRank1[itemIndex],'activeTypes',[type])
+                //     console.log('1')
+                //     // newMovieRank1[itemIndex].activeTypes.push(type);
+                    
+                // }
+                this.newDatafromFather = newMovieRank1;
+            },
+            
+            
           
         },
+        computed: {
+            randomPoster(){
+                var posterPath = []
+                let i;
+                var newMovieData = this.movieData.slice()
+                for(i=0;i<3;i++){
+                    var movieIndex = Math.floor(Math.random()*newMovieData.length)
+                    
+                    posterPath.push(newMovieData[movieIndex].poster_path)
+                    newMovieData.splice(movieIndex,1) 
+                    
+                }
+                newMovieData = this.movieData
+                return posterPath                
+            }
+
+        },
         mounted() {
-            window.vue = this
+            // window.vue = this
+            this.newDatafromFather = this.datafromFather
+            console.log(this.movieData)
         
             
         }

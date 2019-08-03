@@ -15,3 +15,6 @@ filters: {
 不像 class一樣 有這種內建判斷式
 <div :class="{male : ismale}" >
 官網很詳細 可以多去看看
+
+
+set設置可以被computed監控

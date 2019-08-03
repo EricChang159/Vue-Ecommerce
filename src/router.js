@@ -1,26 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import carousel from './components/Home/header/carousel.vue'
+import shoppingcenter from './components/Home/cart/shoppingcenter.vue'
+import items from './components/Home/cart/items.vue'
 Vue.use(Router)
 
 export default new Router({
     mode: 'history',
     linkActiveClass: "active",
-    routes: [
-        {
-        path: '/',
-        name: 'carousel',
-        component: () => import('./components/Home/header/carousel.vue')
+    routes: [{
+            path: '/',
+            name: 'carousel',
+            component: carousel
         },
         {
-            path: '/',
+            path: '/header',
             name: 'header',
             component: () => import('./components/Home/header/header.vue')
         },
         {
             path: '/shoppingcenter',
             name: 'shoppingcenter',
-            component: () => import('./components/Home/cart/shoppingcenter.vue'),
+            component: shoppingcenter,
             children: [{
                     path: 'cart',
                     name: 'cart',
@@ -30,7 +31,7 @@ export default new Router({
                 {
                     path: 'items',
                     name: 'items',
-                    component: () => import('./components/Home/cart/items.vue'),
+                    component: items
                 }
             ]
         },

@@ -1,26 +1,21 @@
 <template>
-    <div id="app">
-            <!-- <HeaderBar></HeaderBar> -->
-            <div class="container-collapse">
-                <router-link to = '/' >to head</router-link>
-                <router-link to = '/shoppingcenter/items' >to shoppingcenter/items</router-link>
-                <router-link to = '/shoppingcenter/cart' >to shopping/cart</router-link>
-                <router-link to = '/shoppingcenter' >to shopping</router-link>
-            </div>
-                <br>
-           
-            <router-view :movies ='movieRank1' />
+    <div id="app" class="container-collapse">
+        <navbar></navbar>
+        <router-view :movies ='movieRank1' />
+        <!-- <test></test> -->
 
 
     </div>
 </template>
-
 <script>
-import HeaderBar from './Home/header/header-fixbar.vue'
+import navbar from './Home/header/navbar.vue'
+import test from './Home/bottomDown.vue'
 export default {
     name:"app",
     components:{
-        HeaderBar,
+        navbar,
+        test,
+
     },
     data(){
         return {
@@ -35,6 +30,7 @@ export default {
         }]
 
     },
+
     mounted() {
         this.axios.get(
                 'https://api.themoviedb.org/3/discover/movie?api_key=192102bc85d3156ffe17c011468b1fb5&include_adult=ture&include_video=ture'
