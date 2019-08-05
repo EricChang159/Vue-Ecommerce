@@ -130,7 +130,6 @@
             
             keyWordSearch(){
                  var  tempMovieRank1 = JSON.parse(JSON.stringify(this.movieRank1))
-                 console.log('keyWordSearch')
                   return  tempMovieRank1.filter(a=>{
                     var tags = ['title', 'release_date']
                     var flag = false
@@ -164,22 +163,23 @@
             chooseShowType(items, type) {
                 const id = items.id;
                 const itemIndex = this.movieRank1.findIndex(a => a.id === id);
-                const newItems = this.movieRank1[itemIndex];
                 const newMovieRank1 = this.movieRank1.slice();
+                const movieItem = newMovieRank1[itemIndex];
                 
-                if (!newItems.activeTypes) {
-                    newMovieRank1[itemIndex].activeTypes = [type];
+                if (!movieItem.activeTypes) {
+                    movieItem.activeTypes = [type];
                 }else{
-                    newMovieRank1[itemIndex].activeTypes = []
-                    newMovieRank1[itemIndex].activeTypes.push(type);
+                    movieItem.activeTypes = []
+                    movieItem.activeTypes.push(type);
                 }
                 
-                if(newItems.activeTypes != undefined){
-                    newItems.isPhotoSelected = true
+                if(movieItem.activeTypes != undefined && movieItem.quantity == undefined){
+                    movieItem.isPhotoSelected = true
+                    movieItem.quantity = 1
                 }
                 this.movieRank1 = newMovieRank1;
-                console.log(newItems.activeTypes)
-                console.log(newItems.activeTypes.includes(type))
+                console.log(movieItem.activeTypes)
+                console.log(movieItem.activeTypes.includes(type))
 
             },
            clickme(items){  
@@ -192,47 +192,65 @@
                const newMovieRank1 = this.movieRank1.slice()
                const itemIndex = this.movieRank1.findIndex(a => a.id === id)
                const movieItem = newMovieRank1[itemIndex]
-               console.log(itemIndex)
+               
                if(!movieItem.isPhotoSelected){
                 movieItem.isPhotoSelected = true
-                   console.log(movieItem.isPhotoSelected)
+                movieItem.activeTypes = ["2D"]
+                movieItem.quantity = 1
                }else{
                 movieItem.isPhotoSelected = !movieItem.isPhotoSelected
                }
 
                if(movieItem.isPhotoSelected == false){
-                movieItem.activeTypes = []
+                movieItem.activeTypes = undefined
+                movieItem.quantity = undefined
                }
                this.movieRank1 = newMovieRank1
             },
-            
-            
             changeQuantity(items,way){
                 // 用set方法插入，
                 const id = items.id
                 const newMovieRank1 = this.movieRank1.slice()
                 const itemIndex = newMovieRank1.findIndex(a => a.id === id)
+                const movieItem = newMovieRank1[itemIndex]
 
-                if(typeof (newMovieRank1[itemIndex].quantity) == 'undefined' ){
-                    this.$set(newMovieRank1[itemIndex],'quantity', 0)
+                if(typeof (movieItem.quantity) == 'undefined' ){
+                    this.$set(movieItem,'quantity', 0)
                 }
-                way < 0 ? newMovieRank1[itemIndex].quantity-- : newMovieRank1[itemIndex].quantity++
-                if (newMovieRank1[itemIndex].quantity < 1){
-                    newMovieRank1[itemIndex].quantity = 1
+                way < 0 ? movieItem.quantity-- : movieItem.quantity++
+                if (movieItem.quantity <= 0){
+                    movieItem.quantity = undefined
+                    movieItem.isPhotoSelected = false
+                    movieItem.activeTypes = undefined
+
+                }else if(movieItem.quantity != undefined && movieItem.activeTypes == undefined) {
+                    movieItem.isPhotoSelected = true
+                    movieItem.activeTypes = ["2D"]
                 }
+                console.log(movieItem.activeTypes)
+                
                 this.movieRank1 = newMovieRank1
             },
             selectedAll(way){
-                this.movieRank1.forEach(a=>{
-                    if(typeof a.isPhotoSelected == 'undefined'){
+                const newMovieRank1 = this.movieRank1.slice()
+                newMovieRank1.forEach(a=>{
+                    if(typeof a.isPhotoSelected == undefined){
                     this.$set(a,'isPhotoSelected','false')
                     a.isPhotoSelected = false
                     }
                     way>0 ? a.isPhotoSelected = true  : a.isPhotoSelected = false
+                    way>0 ? a.activeTypes = ["2D"] : a.activeTypes = undefined
+                    if(a.isPhotoSelected == true && a.quantity == undefined ){
+                        a.quantity = 1
+                    }else if(a.isPhotoSelected == false){
+                        a.quantity = undefined
+                    }
+                    
                 })
+                
+                this.movieRank1 = newMovieRank1
             },
             addItemsToCart(){
-                
                 this.movieRank1.forEach(a => {
                     if (a.isPhotoSelected == true) {
                     this.chooseData.push(a)

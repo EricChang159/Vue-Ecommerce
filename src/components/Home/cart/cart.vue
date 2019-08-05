@@ -12,9 +12,23 @@
                             
                         </router-link>                        
                     </div>
+                    <a href="#" ><div class="item-list-show" @click.prevent="showList">Item List</div></a>
+                    <div  class="check-items-listbox " :class="{ 'check-items-listbox-show' : flagShow }">  
+                        <h4 style="text-align:center; color:brown">Item List</h4>
+                        <h4 class="item-list-close" @click.prevent="showList">X</h4>
+                        <div class="check-items-list " v-for="(list,index) in newDatafromFather" :key="index">
+                            <ul>
+                                <li>{{list.title}}</li>
+                                <li>Type: {{list.activeTypes[0]}}</li>
+                                <li>Quantity: {{list.quantity}}</li>
+                                <li>Price: {{list.quantity*getPrice[index]}}</li>
+                            </ul>
+                        </div>
+                        <div style="text-align:right; color:rgb(223, 69, 13);"><h4>{{getTotalMoney}}</h4></div>
+                    </div>  
         <div class="row bg-light " v-for="(items,index) in newDatafromFather" :key="index" >
                
-                <div class="col-md-6" >
+                <div class="col-lg-5 offset-lg-0 offset-sm-2  offset-0" >
                     <div class="product-box">
                         <div class="img-icon">
                             <div class="cancel-selected" @click='cancelSelected(index)'>X</div>
@@ -57,8 +71,9 @@
 
                     </div>
                 </div>
-                <div class="col-md-6 product-story">
-                     <p><b style="font-size:20px;">story : </b> {{items.overview}} </p>
+                <div class="col-lg-7 product-story">
+                     <h4>{{items.title}}</h4>
+                     <p> {{items.overview}} </p>
                 </div>
                 
         </div>
@@ -73,8 +88,9 @@ export default {
                 quantity: 0,
                 selected: false,
                 types: ['2D', '3D', 'IMAX'],
-                newDatafromFather:'',
-                
+                newDatafromFather:[],
+                singlePrice:[],
+                flagShow:false
             }
         },
         props:[
@@ -83,14 +99,19 @@ export default {
         ],
         methods:{
             changeQuantity(items,way){
-                if(typeof (items.quantity) == 'undefined' ){
+                const id = items.id;
+                const itemIndex = this.newDatafromFather.findIndex(a => a.id === id);
+                const newMovieData = this.datafromFather.slice();
+                const newItems = newMovieData[itemIndex];
+                if(typeof (newItems.quantity) == undefined ){
                     this.$set(items,'quantity', 0)
                 }
-                way < 0 ? items.quantity-- : items.quantity++
-                if (items.quantity < 1){
-                    items.quantity = 1
+                way < 0 ? newItems.quantity-- : newItems.quantity++
+                if (newItems.quantity < 1){
+                    newItems.quantity = 1
                 }
-                // console.log(this.newDatafromFather)
+                this.newDatafromFather = newMovieData
+                
             },
             cancelSelected(index){
                 this.newDatafromFather.splice(index,1)
@@ -99,24 +120,17 @@ export default {
             chooseShowType(items, type) {
                 const id = items.id;
                 const itemIndex = this.newDatafromFather.findIndex(a => a.id === id);
-                const newMovieRank1 = this.datafromFather.slice();
-                const newItems = newMovieRank1[itemIndex];
-
-                // if (!newMovieRank1[itemIndex].activeTypes) {
-                    this.$set(newItems,'activeTypes',[type])
-                    
-                // }else{
-                //     newMovieRank1[itemIndex].activeTypes = []
-                //     this.$set(newMovieRank1[itemIndex],'activeTypes',[type])
-                //     console.log('1')
-                //     // newMovieRank1[itemIndex].activeTypes.push(type);
-                    
-                // }
-                this.newDatafromFather = newMovieRank1;
+                const newMovieData = this.newDatafromFather.slice();
+                const newItems = newMovieData[itemIndex];
+                this.$set(newItems,'activeTypes',[type])
+                this.newDatafromFather = newMovieData;
             },
-            
-            
-          
+            showList(){
+                this.flagShow = !this.flagShow
+               console.log(this.flagShow)
+                return this.flagShow
+                
+            }
         },
         computed: {
             randomPoster(){
@@ -125,23 +139,61 @@ export default {
                 var newMovieData = this.movieData.slice()
                 for(i=0;i<3;i++){
                     var movieIndex = Math.floor(Math.random()*newMovieData.length)
-                    
                     posterPath.push(newMovieData[movieIndex].poster_path)
                     newMovieData.splice(movieIndex,1) 
-                    
                 }
                 newMovieData = this.movieData
-                return posterPath                
+                return posterPath  
+            },
+            getPrice(){
+                // singlePrice 放入 data資料綁定反而無法即時更新computed 直接在式子中宣告singlePrice反而可以觸發computed屬性
+                let price = 0;
+                let singlePrice=[];
+                this.newDatafromFather.forEach(a=>{
+                switch(a.activeTypes[0]){
+                        case '2D' : 
+                            price = 100;
+                            break;
+                        case '3D' :
+                            price = 200;
+                            break;
+                        case 'IMAX' :
+                            price = 300;
+                            break;
+                    }
+                   return  singlePrice.push(price)
+               })
+                return singlePrice
+                    
+            },
+            getTotalMoney(){
+                var sum = 0;
+                this.newDatafromFather.forEach(a =>{
+                    let price = 0;
+                    switch(a.activeTypes[0]){
+                        case '2D' : 
+                            price = 100;
+                            break;
+                        case '3D' :
+                            price = 200;
+                            break;
+                        case 'IMAX' :
+                            price = 300;
+                            break;
+                    }
+                    sum = sum + a.quantity*price
+                    return sum
+                })
+                return sum+'$'
             }
-
+            
         },
         mounted() {
-            // window.vue = this
             this.newDatafromFather = this.datafromFather
-            console.log(this.movieData)
-        
+            // console.log(this.datafromFather)
             
-        }
+        },
+        
 
                 
             

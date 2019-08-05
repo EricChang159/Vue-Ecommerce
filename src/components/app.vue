@@ -9,12 +9,12 @@
 </template>
 <script>
 import navbar from './Home/header/navbar.vue'
-import test from './Home/bottomDown.vue'
+// import cashPage from './Home/bottomDown.vue'
 export default {
     name:"app",
     components:{
         navbar,
-        test,
+        // test,
 
     },
     data(){
