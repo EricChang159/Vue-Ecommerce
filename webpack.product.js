@@ -15,9 +15,9 @@ const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plug
 module.exports = merge(common, {
     entry: path.resolve(__dirname, './src/main.js'),
     output: {
-        path: path.resolve(__dirname, 'dist-pro'),
+        path: path.resolve(__dirname, 'dist'),
         filename: '[name].[hash:8].js',
-        publicPath: '/dist-pro/'
+        publicPath: '/dist/'
 
     },
     mode: "production",

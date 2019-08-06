@@ -6,10 +6,9 @@ const path = require('path')
 module.exports = merge(common, {
     entry: path.resolve(__dirname, './src/main.js'),
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'dist-dev'),
         filename: '[name].js',
-        publicPath: '/dist/'
-
+        publicPath: '/dist-dev/'
     },
     mode: "development",
     module: {
@@ -44,7 +43,7 @@ module.exports = merge(common, {
 
     devtool: 'cheap-module-eval-source-map',
     devServer: {
-        contentBase: path.join(__dirname, 'dist'),
+        contentBase: path.join(__dirname, 'dist-dev'),
         port: 8080,
         host: '0.0.0.0',
         overlay: {
