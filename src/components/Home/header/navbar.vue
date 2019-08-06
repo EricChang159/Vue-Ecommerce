@@ -11,7 +11,7 @@
                         <router-link to="/shoppingcenter/items"><a class="nav-link" href="#">Movie <span class="sr-only">(current)</span></a></router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <router-link to="/shoppingcenter/cart"><a class="nav-link" href="#">cart</a></router-link>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>

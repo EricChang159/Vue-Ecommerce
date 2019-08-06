@@ -5,7 +5,7 @@
 -->
         
         <div class="container-fluid bg-light">
-            
+            <button @click="getsomething">cartData</button>
             <router-view  />
             <router-link to="/shoppingcenter/cart">
                 <div class="add-to-cart" @click="addItemsToCart">
@@ -122,12 +122,19 @@
                 chooseData:[],
                 tabType:'popularity',
                 keyWord:'',
-                dataLimit:'9'
+                dataLimit:'9',
+                cartDataId:[],
+                
                 // cloneMovieRank1:'',
             }
         },
+        props:[
+            'cartData' 
+        ],
         computed: {
-            
+            test(){
+                console.log(this.cartData,'items')
+            },
             keyWordSearch(){
                  var  tempMovieRank1 = JSON.parse(JSON.stringify(this.movieRank1))
                   return  tempMovieRank1.filter(a=>{
@@ -152,6 +159,9 @@
 
         },
         methods: {
+            getsomething(){
+                console.log(this.cartData)
+            },
             showMore(way){
                if(way>0){
                 this.dataLimit = this.dataLimit+9
@@ -239,7 +249,17 @@
                     a.isPhotoSelected = false
                     }
                     way>0 ? a.isPhotoSelected = true  : a.isPhotoSelected = false
-                    way>0 ? a.activeTypes = ["2D"] : a.activeTypes = undefined
+                   if(way>0){
+                        if(a.activeTypes != undefined){
+                            return;
+                        }else if(a.activeTypes == undefined){
+                            a.activeTypes = ['2D']
+                        }
+                   }else{
+                       a.activeTypes = undefined
+                   }
+                    
+
                     if(a.isPhotoSelected == true && a.quantity == undefined ){
                         a.quantity = 1
                     }else if(a.isPhotoSelected == false){
@@ -247,16 +267,43 @@
                     }
                     
                 })
-                
                 this.movieRank1 = newMovieRank1
             },
             addItemsToCart(){
+                var cartDataId = []
                 this.movieRank1.forEach(a => {
-                    if (a.isPhotoSelected == true) {
-                    this.chooseData.push(a)
-                     }
+                    if (a.isPhotoSelected == true && this.cartData == '') {
+                        this.chooseData.push(a)
+                        console.log(1)
+                    }else if(a.isPhotoSelected == true &&  this.cartDataId.includes(a.id) == false ){              
+                        this.cartData.push(a)
+                        this.chooseData = this.cartData
+                        console.log(2)
+                    }else if(a.isPhotoSelected == true &&  this.cartDataId.includes(a.id) == true){
+                       var cartItemIndex = this.cartData.findIndex(b=>{
+                            return b.id == a.id
+                       })
+                       var movieItemIndex = this.movieRank1.findIndex(c=>{
+                            return c.id == a.id
+                       })
+                       console.log(cartItemIndex,'cartItemIndex')
+                       console.log(movieItemIndex,'movieItemIndex')
+                       this.cartData[cartItemIndex] = this.movieRank1[movieItemIndex]
+                       return this.chooseData = this.cartData
+                    }else if(this.cartData == ''){
+                        return;
+                    }else{
+                        console.log(4)
+                        return this.chooseData = this.cartData
+                    }
+                    
+                   
+                    return this.chooseData
                 })    
+
                 this.$emit('sendData',this.chooseData)
+                // console.log(this.chooseData,'data from items')                
+
              },
              dataTypeTab(dataType){
                 if(dataType == 'vote_average'){
@@ -289,6 +336,13 @@
                     this.movieRank1 = this.moviePage1.results.slice(0, 20).sort((a, b) => {
                         b.popularity - a.popularity
                     })
+                    if(this.cartData != ''){
+                        this.cartData.map(b=>{
+                        this.cartDataId.push(b.id)
+                        return this.cartDataId
+                    })
+                    }
+                    
                     // .map(a => a.title).join('<br>')
                 })
             // this.axios.get('https://api.themoviedb.org/3/discover/movie?api_key=192102bc85d3156ffe17c011468b1fb5&language=en-US&sort_by=popularity.desc&include_adult=true&include_video=true&page=2')

@@ -15,8 +15,9 @@
           :controlsWidth='100'
           :startIndex="0"
           >
-              <slide  :index="index"  v-for="(items, index) in movieSlider":key="index">
-                  <img  :src="imagePath+items.poster_path">
+          <!-- :count ="10" -->
+              <slide  :index="index"  v-for="(items, index) in 10":key="index">
+                  <img :src="imagePath + movieRank1[index].poster_path" >
               </slide>
           </carousel-3d>     
     <!-- </div> -->
@@ -29,23 +30,14 @@ export default {
     data(){
         return{
             imagePath: 'https://image.tmdb.org/t/p/w500',
-            movieRank1:[]
+            movieRank1:'',
         }
     },
     methods: {
         check(items,index){
         }
     },
-    computed: {
-        movieSlider(){
-          const newMovieSlider = this.movieRank1.slice();
-          newMovieSlider.sort((a,b)=>{
-              b.popularity - a.popularity
-          })
-          console.log(newMovieSlider)
-          return  newMovieSlider
-        }
-    },
+    // 
    
     mounted() {
             this.axios.get(
@@ -53,8 +45,10 @@ export default {
             )
                 .then(datas => {
                     const moviePage1 = datas.data
-                    this.movieRank1 = moviePage1.results
-                    
+                    this.movieRank1 = moviePage1.results.sort((a,b)=>{
+                        b.popularity - a.popularity
+                    })
+                    console.log(this.movieRank1[0].poster_path)
                 })
                 
     },

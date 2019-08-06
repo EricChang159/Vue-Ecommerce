@@ -1,5 +1,6 @@
 <template>
     <div id="cart">
+        <button @click="getInformation">123</button>
         <router-view />
         <div class="container-fluid">
                 <div class="row bg-light no-items" v-show="datafromFather.length < 1" >
@@ -61,7 +62,7 @@
                             </span>
                             <div class="cart-quantity">
                                 <button class="btn btn-success mr-2" @click="changeQuantity(items,1)">+</button>
-                                <input class="form-control col-3 align-items-center" type="text" v-model="items.quantity" readonly>
+                                <input style="width:100px;" class="form-control col-3 " type="text" v-model="items.quantity" readonly>
                                 <button class="btn btn-success ml-2" @click="changeQuantity(items,-1)">-</button>
 
 
@@ -88,9 +89,9 @@ export default {
                 quantity: 0,
                 selected: false,
                 types: ['2D', '3D', 'IMAX'],
-                newDatafromFather:[],
+                newDatafromFather:'',
                 singlePrice:[],
-                flagShow:false
+                flagShow:false,
             }
         },
         props:[
@@ -98,6 +99,9 @@ export default {
             'movieData',
         ],
         methods:{
+            getInformation(){
+                console.log(typeof(''))
+            },
             changeQuantity(items,way){
                 const id = items.id;
                 const itemIndex = this.newDatafromFather.findIndex(a => a.id === id);
@@ -115,6 +119,7 @@ export default {
             },
             cancelSelected(index){
                 this.newDatafromFather.splice(index,1)
+                this.datafromFather = this.newDatafromFather
             
             },
             chooseShowType(items, type) {
@@ -130,9 +135,17 @@ export default {
                console.log(this.flagShow)
                 return this.flagShow
                 
-            }
+            },
+            // updatedfather() {
+            //     this.$emit('dataBack',this.newDatafromFather)
+            // },
         },
         computed: {
+            checkData(){
+                console.log(this.datafromFather,' cart get data from shoppingcenter')
+                this.newDatafromFather = this.datafromFather
+            },
+            
             randomPoster(){
                 var posterPath = []
                 let i;
@@ -149,48 +162,54 @@ export default {
                 // singlePrice 放入 data資料綁定反而無法即時更新computed 直接在式子中宣告singlePrice反而可以觸發computed屬性
                 let price = 0;
                 let singlePrice=[];
-                this.newDatafromFather.forEach(a=>{
-                switch(a.activeTypes[0]){
-                        case '2D' : 
-                            price = 100;
-                            break;
-                        case '3D' :
-                            price = 200;
-                            break;
-                        case 'IMAX' :
-                            price = 300;
-                            break;
-                    }
-                   return  singlePrice.push(price)
-               })
+                if(this.newDatafromFather != ''){
+                    this.newDatafromFather.forEach(a => {
+                        switch(a.activeTypes[0]){
+                                case '2D' : 
+                                    price = 100;
+                                    break;
+                                case '3D' :
+                                    price = 200;
+                                    break;
+                                case 'IMAX' :
+                                    price = 300;
+                                    break;
+                            }
+                        return  singlePrice.push(price)
+                    })
+                }
+                
                 return singlePrice
                     
             },
             getTotalMoney(){
                 var sum = 0;
-                this.newDatafromFather.forEach(a =>{
-                    let price = 0;
-                    switch(a.activeTypes[0]){
-                        case '2D' : 
-                            price = 100;
-                            break;
-                        case '3D' :
-                            price = 200;
-                            break;
-                        case 'IMAX' :
-                            price = 300;
-                            break;
-                    }
-                    sum = sum + a.quantity*price
-                    return sum
-                })
+                if(this.newDatafromFather != ''){
+                    this.newDatafromFather.forEach(a =>{
+                        let price = 0;
+                        switch(a.activeTypes[0]){
+                            case '2D' : 
+                                price = 100;
+                                break;
+                            case '3D' :
+                                price = 200;
+                                break;
+                            case 'IMAX' :
+                                price = 300;
+                                break;
+                        }
+                        sum = sum + a.quantity*price
+                        return sum
+                    })
+                }
                 return sum+'$'
             }
             
         },
         mounted() {
             this.newDatafromFather = this.datafromFather
-            // console.log(this.datafromFather)
+            console.log(this.newDatafromFather,'newDatafromFather')
+            this.$emit('dataBack', this.newDatafromFather)
             
         },
         
