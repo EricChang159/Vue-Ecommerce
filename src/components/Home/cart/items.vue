@@ -9,7 +9,7 @@
             <router-view  />
             <router-link to="/shoppingcenter/cart">
                 <div class="add-to-cart" @click="addItemsToCart">
-                    <img :src="location.href + cartIcon">
+                    <img :src="websiteAddress + cartIcon">
                     <button class="btn btn-outline-primary" type="button">Add to cart</button>
                 </div>
             </router-link>
@@ -124,8 +124,8 @@
                 keyWord:'',
                 dataLimit:'9',
                 cartDataId:[],
-                cartIcon:require('../../../image/header-shopping-carticon.jpg')
-                
+                cartIcon:require('../../../image/header-shopping-carticon.jpg'),
+                websiteAddress:location.href
                 // cloneMovieRank1:'',
             }
         },
