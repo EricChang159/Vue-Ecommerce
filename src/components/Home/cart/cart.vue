@@ -1,9 +1,9 @@
 <template>
     <div id="cart">
-        <button @click="getInformation">123</button>
+        <!-- <button @click="getInformation">123</button> -->
         <router-view />
         <div class="container-fluid">
-                <div class="row bg-light no-items" v-show="datafromFather.length < 1" >
+                <div class="row bg-light no-items" v-show="newDatafromFather.length < 1" >
                         <div class="col-md-12 " >there is no item in your cart</div>
                         <router-link to="/shoppingcenter/items">
                             <div>Get Some Of Your Favorite Movie</div>
@@ -100,12 +100,15 @@ export default {
         ],
         methods:{
             getInformation(){
-                console.log(typeof(''))
+            //    const data = JSON.parse(localStorage.getItem('dataLastTime'))
+                console.log(JSON.parse(localStorage.getItem('dataLastTime')))
+                // console.log(typeof(data))
+                console.log(this.newDatafromFather)
             },
             changeQuantity(items,way){
                 const id = items.id;
                 const itemIndex = this.newDatafromFather.findIndex(a => a.id === id);
-                const newMovieData = this.datafromFather.slice();
+                const newMovieData = this.newDatafromFather.slice();
                 const newItems = newMovieData[itemIndex];
                 if(typeof (newItems.quantity) == undefined ){
                     this.$set(items,'quantity', 0)
@@ -139,6 +142,7 @@ export default {
             // updatedfather() {
             //     this.$emit('dataBack',this.newDatafromFather)
             // },
+           
         },
         computed: {
             checkData(){
@@ -202,13 +206,27 @@ export default {
                         return sum
                     })
                 }
+                if(this.newDatafromFather != ''){
+                    localStorage.setItem('dataLastTime',JSON.stringify(this.newDatafromFather))
+                }
+                console.log('setItem')
                 return sum+'$'
             }
             
         },
         mounted() {
+            
             this.newDatafromFather = this.datafromFather
+            // console.log(this.newDatafromFather,'newDatafromFather')
+            // console.log(localStorageData,'mounted localStorageData')
+
+            if(this.newDatafromFather == ''){
+                let localStorageData = JSON.parse(localStorage.getItem('dataLastTime'))
+                this.newDatafromFather = localStorageData
             console.log(this.newDatafromFather,'newDatafromFather')
+
+                }
+            // console.log(1)
             this.$emit('dataBack', this.newDatafromFather)
             
         },
