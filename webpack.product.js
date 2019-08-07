@@ -3,6 +3,7 @@ var common = require('./webpack.common')
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const {
     CleanWebpackPlugin
@@ -21,7 +22,7 @@ module.exports = merge(common, {
 
     },
     mode: "production",
-    
+
     optimization: {
         minimizer: [
             new terserPlugin({
@@ -74,6 +75,11 @@ module.exports = merge(common, {
         new MiniCssExtractPlugin({
             filename: '[name].[hash:8].css',
         }),
+        new HtmlWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            filename: '../index.html'
+        }),
+
     ],
 
 

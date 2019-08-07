@@ -5,11 +5,11 @@
 -->
         
         <div class="container-fluid bg-light">
-            <button @click="getsomething">cartData</button>
+            <!-- <button @click="getsomething">cartData</button> -->
             <router-view  />
             <router-link to="/shoppingcenter/cart">
                 <div class="add-to-cart" @click="addItemsToCart">
-                    <img :src="cartIcon">
+                    <img src="https://ericchang159.github.io/Vue-Ecommerce/src/image/header-shopping-carticon.jpg">
                     <button class="btn btn-outline-primary" type="button">Add to cart</button>
                 </div>
             </router-link>
