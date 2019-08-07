@@ -9,7 +9,7 @@
             <router-view  />
             <router-link to="/shoppingcenter/cart">
                 <div class="add-to-cart" @click="addItemsToCart">
-                    <img :src="cartIcon">
+                    <img :src="websiteAddress+cartIcon">
                     <button class="btn btn-outline-primary" type="button">Add to cart</button>
                 </div>
             </router-link>
@@ -162,7 +162,7 @@
         methods: {
             getsomething(){
                 // console.log(this.cartData)
-                console.log(location.href)
+                console.log(this.websiteAddress)
             },
             showMore(way){
                if(way>0){
