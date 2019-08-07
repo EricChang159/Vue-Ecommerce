@@ -17,7 +17,7 @@ module.exports = merge(common, {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].[hash:8].js',
-        publicPath: '/dist/'
+        // publicPath: '/dist/'
 
     },
     mode: "production",
@@ -61,7 +61,7 @@ module.exports = merge(common, {
                 test: /\.(sa|sc|c)ss$/,
                 use: [
                     // 'style-loader',
-                    'cache-loader',
+                    // 'cache-loader',
                     MiniCssExtractPlugin.loader,
                     'thread-loader',
                     'css-loader',

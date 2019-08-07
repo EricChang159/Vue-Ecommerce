@@ -5,7 +5,7 @@
 -->
         
         <div class="container-fluid bg-light">
-            <button @click="getsomething">cartData</button>
+            <!-- <button @click="getsomething">cartData</button> -->
             <router-view  />
             <router-link to="/shoppingcenter/cart">
                 <div class="add-to-cart" @click="addItemsToCart">
@@ -133,7 +133,7 @@
         ],
         computed: {
             test(){
-                console.log(this.cartData,'items')
+                console.log()
             },
             keyWordSearch(){
                  var  tempMovieRank1 = JSON.parse(JSON.stringify(this.movieRank1))
