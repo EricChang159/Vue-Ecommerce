@@ -23,15 +23,44 @@ module.exports = merge(common, {
     mode: "production",
     optimization: {
         minimizer: [
-            new terserPlugin(),
+            new terserPlugin({
+                cache: true,
+                parallel: true,
+                // sourceMap: config.build.productionSourceMap,
+                terserOptions: {
+                    warnings: false,
+                    compress: {
+                        drop_console: true
+                    }
+                }
+            }),
             new OptimizeCssAssetsWebpackPlugin(),
         ],
+        runtimeChunk: {
+            name: 'mainfest'
+        },
         splitChunks: {
+            chunks: 'async',
+            minSize: 30000,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            automaticNameDelimiter: '~',
+            name: true,
             cacheGroups: {
+                vueFramwork: {
+                    name: 'vueFramwork',
+                    test: (module) => {
+                        return /vue|vue-loader|vuex/.test(module.context);
+                    },
+                    chunks: "initial",
+                    priority: 200,
+                },
                 vendor: {
                     test: /[\\/]node_modules[\\/]/,
                     name: 'vendors',
-                    chunks: 'all'
+                    chunks: 'initial',
+                    priority: 100,
                 }
             }
         }
