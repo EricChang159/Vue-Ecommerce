@@ -6,7 +6,7 @@ import items from './components/Home/cart/items.vue'
 Vue.use(Router)
 
 export default new Router({
-    mode: 'history',
+    mode: 'hash',
     linkActiveClass: "active",
     routes: [{
             path: '/',

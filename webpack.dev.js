@@ -49,12 +49,12 @@ module.exports = merge(common, {
         overlay: {
             errors: true
         },
-        historyApiFallback: {
-            rewrites: [{
-                from: /.*/g,
-                to: '/index.html' //与output的publicPath有关(HTMLplugin生成的html默认为index.html)
-            }]
-        },
+        // historyApiFallback: {  for history mode
+        //     rewrites: [{
+        //         from: /.*/g,
+        //         to: '/index.html' //与output的publicPath有关(HTMLplugin生成的html默认为index.html)
+        //     }]
+        // },
         hot: true,
     },
     plugins: [

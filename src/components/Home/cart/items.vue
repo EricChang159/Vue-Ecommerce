@@ -9,7 +9,7 @@
             <router-view  />
             <router-link to="/shoppingcenter/cart">
                 <div class="add-to-cart" @click="addItemsToCart">
-                    <img :src="websiteAddress+cartIcon">
+                    <img :src="cartIcon">
                     <button class="btn btn-outline-primary" type="button">Add to cart</button>
                 </div>
             </router-link>
