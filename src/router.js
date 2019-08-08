@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import carousel from './components/Home/header/carousel.vue'
 import shoppingcenter from './components/Home/cart/shoppingcenter.vue'
-// import items from './components/Home/cart/items.vue'
+import items from './components/Home/cart/items.vue'
 import cart from './components/Home/cart/cart.vue'
 Vue.use(Router)
 
