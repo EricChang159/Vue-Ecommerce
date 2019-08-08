@@ -7,9 +7,9 @@
                         <div class="col-md-12 " >there is no item in your cart</div>
                         <router-link to="/shoppingcenter/items">
                             <div>Get Some Of Your Favorite Movie</div>
-                            <img v-for="(poster,index) in randomPoster"  
+                            <!-- <img v-for="(poster,index) in randomPoster"  
                                     :key="index"
-                            :src="imagePath + poster" >
+                            :src="imagePath + poster" > -->
                             
                         </router-link>                        
                     </div>
