@@ -4,7 +4,9 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const {
+  CleanWebpackPlugin
+} = require("clean-webpack-plugin");
 
 const terserPlugin = require("terser-webpack-plugin");
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin");
@@ -17,7 +19,6 @@ module.exports = merge(common, {
     // publicPath: '/dist/'
   },
   mode: "production",
-
   optimization: {
     minimizer: [
       new terserPlugin({
@@ -33,17 +34,16 @@ module.exports = merge(common, {
       }),
       new OptimizeCssAssetsWebpackPlugin()
     ],
-    runtimeChunk: {
-      name: "mainfest"
-    },
+    runtimeChunk: 'single',
     splitChunks: {
-      chunks: "async",
+      chunks: "all",
       minSize: 30000,
-      minChunks: 1,
-      maxAsyncRequests: 5,
-      maxInitialRequests: 3,
-      automaticNameDelimiter: "~",
-      name: true,
+      maxInitialRequests: Infinity,
+      // maxAsyncRequests: 5,
+      // maxInitialRequests: 3,
+      // automaticNameDelimiter: "~",
+      // minChunks: 1,
+      // name: true,
       cacheGroups: {
         vueFramwork: {
           name: "vueFramwork",
@@ -77,8 +77,7 @@ module.exports = merge(common, {
   ],
 
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.html$/,
         loader: "html-loader",
         options: {
