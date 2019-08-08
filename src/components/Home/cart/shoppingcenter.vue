@@ -6,7 +6,7 @@
                     @dataBack='cartDataBack' :cartData="dataBackFromCart"
         />
         <!-- <button class="btn btn-outline-primary" @click="getData">getData</button> -->
-        <button @click=""></button>
+        <button @click="checkData" style="position: absolute;">shoppingcenter check Data</button>
     </div>
 </template>
 <script>
@@ -20,6 +20,9 @@ export default {
     },
     props:['movies'],
     methods:{ 
+        checkData(){
+            console.log(this.movies)
+        },
          getData(data){
         this.choose = data
         console.log(this.choose,'shoppingcenter get data from items')

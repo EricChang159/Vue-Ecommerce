@@ -101,7 +101,7 @@ export default {
         methods:{
             getInformation(){
             
-                console.log(this.datafromFather)
+                console.log(this.movieData)
             },
             changeQuantity(items,way){
                 const id = items.id;
@@ -119,8 +119,12 @@ export default {
                 
             },
             cancelSelected(index){
+                
                 this.newDatafromFather.splice(index,1)
-                this.datafromFather = this.newDatafromFather
+                if(this.newDatafromFather.length == 0){
+                    localStorage.setItem('dataLastTime',JSON.stringify(this.newDatafromFather))
+                    console.log('setItem000')
+                }
             
             },
             chooseShowType(items, type) {
@@ -157,6 +161,7 @@ export default {
                     posterPath.push(newMovieData[movieIndex].poster_path)
                     newMovieData.splice(movieIndex,1) 
                 }
+                console.log(newMovieData)
                 newMovieData = this.movieData
                 return posterPath  
             },
@@ -213,19 +218,19 @@ export default {
             
         },
         mounted() {
-            
+            console.log(this.movieData,'movieData')
             this.newDatafromFather = this.datafromFather
             // console.log(this.newDatafromFather,'newDatafromFather')
             // console.log(localStorageData,'mounted localStorageData')
-
             if(this.newDatafromFather == []){
                 let localStorageData = JSON.parse(localStorage.getItem('dataLastTime'))
                 this.newDatafromFather = localStorageData
             console.log(this.newDatafromFather,'newDatafromFather')
-
                 }
             // console.log(1)
             this.$emit('dataBack', this.newDatafromFather)
+            console.log(this.movieData,'movieData')
+
             
         },
         
