@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import carousel from './components/Home/header/carousel.vue'
 import shoppingcenter from './components/Home/cart/shoppingcenter.vue'
-// import items from './components/Home/cart/items.vue'
+import items from './components/Home/cart/items.vue'
+import cart from './components/Home/cart/cart.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -25,13 +26,14 @@ export default new Router({
             children: [{
                     path: 'cart',
                     name: 'cart',
-                    component: () => import( /* webpackChunkName:"cart" */ './components/Home/cart/cart.vue'),
-
+                    // component: () => import( /* webpackChunkName:"cart" */ './components/Home/cart/cart.vue'),
+                    component: cart
                 },
                 {
                     path: 'items',
                     name: 'items',
-                    component: () => import( /* webpackChunkName:"items" */ './components/Home/cart/items.vue')
+                    // component: () => import( /* webpackChunkName:"items" */ './components/Home/cart/items.vue')
+                    component: items
                 }
             ]
         },
