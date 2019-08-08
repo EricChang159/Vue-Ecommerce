@@ -17,7 +17,7 @@
           >
           <!-- :count ="10" -->
               <slide  :index="index"  v-for="(items, index) in 10":key="index">
-                  <img :src="imagePath + movieRank1[index].poster_path" >
+                  <img :src="imagePath + moviePosterData[index]" >
               </slide>
           </carousel-3d>     
     <!-- </div> -->
@@ -30,13 +30,32 @@ export default {
     data(){
         return{
             imagePath: 'https://image.tmdb.org/t/p/w500',
-            movieRank1:'',
+            movieRank1:[],
+            moviePoster:[],
+
         }
     },
     methods: {
         check(items,index){
         }
     },
+    computed:{
+        moviePosterData(){
+            if(this.movieRank1 != ''){
+                var posterPath = []
+                this.moviePoster = this.movieRank1.slice()
+                this.moviePoster.map(a=>{
+                    posterPath.push(a.poster_path)
+                })
+                return posterPath
+            }else{
+               return  posterPath = []
+            }
+            
+        }
+    },
+
+    
     // 
    
     mounted() {
@@ -48,7 +67,7 @@ export default {
                     this.movieRank1 = moviePage1.results.sort((a,b)=>{
                         b.popularity - a.popularity
                     })
-                    console.log(this.movieRank1[0].poster_path)
+
                 })
                 
     },

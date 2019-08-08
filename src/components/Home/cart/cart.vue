@@ -7,9 +7,10 @@
                         <div class="col-md-12 " >there is no item in your cart</div>
                         <router-link to="/shoppingcenter/items">
                             <div>Get Some Of Your Favorite Movie</div>
-                            <!-- <img v-for="(poster,index) in randomPoster"  
+
+                            <img v-for="(poster,index) in randomPoster"  
                                     :key="index"
-                            :src="imagePath + poster" > -->
+                            :src="imagePath + randomPoster[index]" >
                             
                         </router-link>                        
                     </div>
@@ -92,6 +93,7 @@ export default {
                 newDatafromFather:[],
                 singlePrice:[],
                 flagShow:false,
+                // movieData:[],
             }
         },
         props:[
@@ -151,20 +153,26 @@ export default {
                 console.log(this.datafromFather,' cart get data from shoppingcenter')
                 this.newDatafromFather = this.datafromFather
             },
-            
-            // randomPoster(){
-            //     var posterPath = []
-            //     let i;
-            //     var newMovieData = this.movieData.slice()
-            //     for(i=0;i<3;i++){
-            //         var movieIndex = Math.floor(Math.random()*newMovieData.length)
-            //         posterPath.push(newMovieData[movieIndex].poster_path)
-            //         newMovieData.splice(movieIndex,1) 
-            //     }
-            //     console.log(newMovieData)
-            //     newMovieData = this.movieData
-            //     return posterPath  
-            // },
+            randomPoster(){
+                if(this.movieData != ''){
+                    var posterPath = []
+                let i;
+                var newMovieData = this.movieData.slice()
+                for(i=0;i<3;i++){
+                    var movieIndex = Math.floor(Math.random()*newMovieData.length)
+                    console.log(newMovieData[movieIndex])
+                    posterPath.push(newMovieData[movieIndex].poster_path)
+                    newMovieData.splice(movieIndex,1) 
+                }
+                // console.log(newMovieData)
+                newMovieData = this.movieData
+                console.log('posterPath')
+                return posterPath  
+                }else{
+                    console.log('1')
+                }
+                
+            },
             getPrice(){
                 // singlePrice 放入 data資料綁定反而無法即時更新computed 直接在式子中宣告singlePrice反而可以觸發computed屬性
                 let price = 0;
@@ -218,18 +226,23 @@ export default {
             
         },
         mounted() {
-            console.log(this.movieData,'movieData')
+            this.axios.get(
+                'https://api.themoviedb.org/3/discover/movie?api_key=192102bc85d3156ffe17c011468b1fb5&include_adult=ture&include_video=ture'
+            )
+            // .then(datas => {
+            //     this.movieData = datas.data.results
+            //     console.log(this.movieData)
+            // })
+            // .then(console.log(this.movieData))
+            console.log(this.movieData,'2')
             this.newDatafromFather = this.datafromFather
-            // console.log(this.newDatafromFather,'newDatafromFather')
-            // console.log(localStorageData,'mounted localStorageData')
+
             if(this.newDatafromFather == []){
                 let localStorageData = JSON.parse(localStorage.getItem('dataLastTime'))
                 this.newDatafromFather = localStorageData
             console.log(this.newDatafromFather,'newDatafromFather')
                 }
-            // console.log(1)
             this.$emit('dataBack', this.newDatafromFather)
-            console.log(this.movieData,'movieData')
 
             
         },
