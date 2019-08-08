@@ -8,19 +8,12 @@ Vue.use(Router)
 
 export default new Router({
     mode: 'hash',
-    linkActiveClass: "active",
+    // linkActiveClass: "active",
     routes: [{
             path: '/',
             name: 'carousel',
             component: carousel,
-            // component: () => import( /* webpackChunkName:"cart" */ './components/Home/header/carousel.vue'),
-
         },
-        // {
-        //     path: '/header',
-        //     name: 'header',
-        //     component: () => import( /* webpackChunkName:"header" */ './components/Home/header/header.vue')
-        // },
         {
             path: '/shoppingcenter',
             name: 'shoppingcenter',
@@ -29,7 +22,6 @@ export default new Router({
                     path: 'cart',
                     name: 'cart',
                     component: () => import( /* webpackChunkName:"cart" */ './components/Home/cart/cart.vue'),
-                    // component: cart
                 },
                 {
                     path: 'items',
@@ -39,13 +31,5 @@ export default new Router({
                 }
             ]
         },
-        //     {
-        //     path: '/',
-        //     name: 'practice',
-        //     component: () => import('./components/Home/practice.vue')
-        // }
-
-
-
     ]
 })
