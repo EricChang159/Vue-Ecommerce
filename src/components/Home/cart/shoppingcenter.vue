@@ -6,7 +6,7 @@
                     @dataBack='cartDataBack' :cartData="dataBackFromCart"
         />
         <!-- <button class="btn btn-outline-primary" @click="getData">getData</button> -->
-        <button @click="checkData" style="position: absolute;">shoppingcenter check Data</button>
+        <!-- <button @click="checkData" style="position: absolute;">shoppingcenter check Data</button> -->
     </div>
 </template>
 <script>

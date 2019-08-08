@@ -1,6 +1,6 @@
 <template>
     <div id="cart">
-        <button @click="getInformation">123</button>
+        <!-- <button @click="getInformation">123</button> -->
         <router-view />
         <div class="container-fluid">
                 <div class="row bg-light no-items" v-show="newDatafromFather.length < 1" >
