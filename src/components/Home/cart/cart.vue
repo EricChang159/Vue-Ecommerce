@@ -152,19 +152,19 @@ export default {
                 this.newDatafromFather = this.datafromFather
             },
             
-            randomPoster(){
-                var posterPath = []
-                let i;
-                var newMovieData = this.movieData.slice()
-                for(i=0;i<3;i++){
-                    var movieIndex = Math.floor(Math.random()*newMovieData.length)
-                    posterPath.push(newMovieData[movieIndex].poster_path)
-                    newMovieData.splice(movieIndex,1) 
-                }
-                console.log(newMovieData)
-                newMovieData = this.movieData
-                return posterPath  
-            },
+            // randomPoster(){
+            //     var posterPath = []
+            //     let i;
+            //     var newMovieData = this.movieData.slice()
+            //     for(i=0;i<3;i++){
+            //         var movieIndex = Math.floor(Math.random()*newMovieData.length)
+            //         posterPath.push(newMovieData[movieIndex].poster_path)
+            //         newMovieData.splice(movieIndex,1) 
+            //     }
+            //     console.log(newMovieData)
+            //     newMovieData = this.movieData
+            //     return posterPath  
+            // },
             getPrice(){
                 // singlePrice 放入 data資料綁定反而無法即時更新computed 直接在式子中宣告singlePrice反而可以觸發computed屬性
                 let price = 0;
