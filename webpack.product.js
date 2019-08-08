@@ -72,7 +72,7 @@ module.exports = merge(common, {
     new HtmlWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: "../index.html",
-      inject: true || "body"
+      // inject: true || "body"
     })
   ],
 

@@ -1,6 +1,6 @@
 <template>
     <div id="cart">
-        <!-- <button @click="getInformation">123</button> -->
+        <button @click="getInformation">123</button>
         <router-view />
         <div class="container-fluid">
                 <div class="row bg-light no-items" v-show="newDatafromFather.length < 1" >
@@ -89,7 +89,7 @@ export default {
                 quantity: 0,
                 selected: false,
                 types: ['2D', '3D', 'IMAX'],
-                newDatafromFather:'',
+                newDatafromFather:[],
                 singlePrice:[],
                 flagShow:false,
             }
@@ -100,10 +100,8 @@ export default {
         ],
         methods:{
             getInformation(){
-            //    const data = JSON.parse(localStorage.getItem('dataLastTime'))
-                console.log(JSON.parse(localStorage.getItem('dataLastTime')))
-                // console.log(typeof(data))
-                console.log(this.newDatafromFather)
+            
+                console.log(this.datafromFather)
             },
             changeQuantity(items,way){
                 const id = items.id;
@@ -220,7 +218,7 @@ export default {
             // console.log(this.newDatafromFather,'newDatafromFather')
             // console.log(localStorageData,'mounted localStorageData')
 
-            if(this.newDatafromFather == ''){
+            if(this.newDatafromFather == []){
                 let localStorageData = JSON.parse(localStorage.getItem('dataLastTime'))
                 this.newDatafromFather = localStorageData
             console.log(this.newDatafromFather,'newDatafromFather')

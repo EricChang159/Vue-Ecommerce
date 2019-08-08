@@ -24,7 +24,7 @@ export default new Router({
             name: 'shoppingcenter',
             component: shoppingcenter,
             children: [{
-                    path: '/',
+                    path: 'cart',
                     name: 'cart',
                     // component: () => import( /* webpackChunkName:"cart" */ './components/Home/cart/cart.vue'),
                     component: cart
