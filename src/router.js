@@ -26,8 +26,8 @@ export default new Router({
             children: [{
                     path: 'cart',
                     name: 'cart',
-                    // component: () => import( /* webpackChunkName:"cart" */ './components/Home/cart/cart.vue'),
-                    component: cart
+                    component: () => import( /* webpackChunkName:"cart" */ './components/Home/cart/cart.vue'),
+                    // component: cart
                 },
                 {
                     path: 'items',
