@@ -7,7 +7,7 @@
           :perspective='35'
           :display='5'
           :animationSpeed='2000'
-          :height='480'
+          :height='540'
           :width='400'
           :border='10'
           :controlsVisible='true'
@@ -16,9 +16,15 @@
           :startIndex="0"
           >
           <!-- :count ="10" -->
-              <slide  :index="index"  v-for="(items, index) in 10":key="index">
-                  <img :src="imagePath + moviePosterData[index]" >
+              
+          <slide  :index="index"  v-for="(items, index) in 10":key="index">
+                  <router-link to="/shoppingcenter/items">
+                    <a href="#">
+                        <img class="slide-img" :src="imagePath + moviePosterData[index]" >
+                    </a>
+                </router-link>
               </slide>
+            
           </carousel-3d>     
     <!-- </div> -->
 <!-- </div> -->
@@ -77,13 +83,7 @@ export default {
 }
 </script>
 <style>
-   /* #carousel{
-    height:600px;
-    
-   }
-   
-   img{
-       border:black;
-   } */
+
+
 
 </style>
