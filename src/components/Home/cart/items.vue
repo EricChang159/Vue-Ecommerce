@@ -124,7 +124,7 @@
                 keyWord:'',
                 dataLimit:'9',
                 cartDataId:[],
-                cartIcon:require('../../../image/header-shopping-carticon.jpg'),
+                // cartIcon:require('../../../image/header-shopping-carticon.png'),
                 websiteAddress:location.href
                 // cloneMovieRank1:'',
             }
