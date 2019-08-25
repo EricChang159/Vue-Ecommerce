@@ -4,12 +4,10 @@
         <router-view :movies ='movieRank1' />
         <!-- <test></test> -->
 
-
     </div>
 </template>
 <script>
 import navbar from './Home/header/navbar.vue'
-// import cashPage from './Home/bottomDown.vue'
 export default {
     name:"app",
     components:{
@@ -50,6 +48,8 @@ export default {
 #app{
     z-index: -10;
     height:520px;
+    font-size:14px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 </style>

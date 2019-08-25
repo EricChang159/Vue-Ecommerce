@@ -4,7 +4,7 @@
 空白不行 - 也不行，少做一個，按照順序排名的BAR要且要略過冠詞
 -->
         
-        <div class="container-fluid bg-light">
+        <div class="container-fluid">
             <!-- <button @click="getsomething">cartData</button> -->
             <router-view  />
             <router-link to="/shoppingcenter/cart">
@@ -15,8 +15,8 @@
             </router-link>
             
             <div class="row ">
-                <div class="col-md-12">
-                    <ul class="nav nav-tabs mt-2 mb-3 ">
+                <div class="col-md-12 nav-tabs-background nav-border" >
+                    <ul class="nav nav-tabs mt-2 mb-3" style="border-bottom:0px;">
                     <li class="nav-item">
                       <a class="nav-link " :class= "{active : tabType == 'popularity'}" href="#" @click="dataTypeTab('popularity')">Popularity</a>
                     </li>
@@ -39,18 +39,18 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12 bg-light">
+                <div class="col-lg-12  selectedAll-btn-background ">
                         <button class="btn btn-outline-success mr-2" @click="selectedAll(1)">Select All</button>
                         <button class="btn btn-outline-success" @click="selectedAll(-1)">Cancel All</button>
                 </div>
             </div>
-            <div class="row bg-light">
+            <div class="row items-all-product-box">
 
-                <div class="col-xl-4" v-for="(items,index) in keyWordSearch" 
+                <div class="col-xl-4 items-page-background" v-for="(items,index) in keyWordSearch" 
                 v-show ="index < dataLimit"
                 :key="index" >
 
-                    <div class="product-box">
+                    <div class="product-box ">
                         <div class="img-icon">
 
                             <img class="not-selected" 
@@ -76,13 +76,16 @@
                             <!-- <li>Runtime:</li> -->
                             <!-- <li>Genres:</li> -->
                             <li>vote_average : {{items.vote_average}}</li>
-                            <span class="ratings">
-                            <li class="empty-stars"></li>
-                            <li class="full-stars" :style="{width:items.vote_average/10*100+'%'}"></li>
-                            </span>
+                            <div class="stars-container">
+                                <span class="ratings">
+                                    <li class="empty-stars"></li>
+                                    <li class="full-stars" :style="{width:items.vote_average/10*100+'%'}"></li>
+                                </span>
+                            </div>
+                            
                             <div class="cart-quantity">
                                 <button class="btn btn-success mr-2" @click="changeQuantity(items,1)">+</button>
-                                <input class="form-control col-3 align-items-center" type="text" v-model="items.quantity" readonly>
+                                <input class="form-control col-3 " type="text" v-model="items.quantity" readonly>
                                 <button class="btn btn-success ml-2" @click="changeQuantity(items,-1)">-</button>
 
                             </div>
@@ -96,7 +99,7 @@
                 
             </div>
             <div class="row">
-                <div class="col-12 bg-light btn-showmore">
+                <div class="col-12  btn-showmore">
                     <button class="btn btn-outline-primary show-more-data" @click="showMore(-1)">Hide</button>
                     <button class="btn btn-outline-primary show-more-data" @click="showMore(1)">Show More</button>
                 </div>

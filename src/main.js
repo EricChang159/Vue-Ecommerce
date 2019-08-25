@@ -11,12 +11,10 @@ import VueAxios from 'vue-axios'
 
 import './styles/reset.css'
 import './styles/css/bootstraps/bootstrap.css'
-import './styles/css/header.scss'
-import './styles/css/header-css/menu.scss'
 import './styles/css/cart.scss'
 import './styles/practice.scss'
-
-import $ from 'jquery'
+import './styles/css/items.scss'
+// import $ from 'jquery'
 import './styles/js/bootstraps/bootstrap.min'
 
 // Vue.use($)

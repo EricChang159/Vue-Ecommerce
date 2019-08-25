@@ -1,0 +1,129 @@
+
+#items{
+    top:0px;
+    z-index: 1;
+    position: relative;
+    padding: 0 0px;
+    color:black;
+    
+}
+.add-to-cart{
+    position:fixed;
+    bottom:50px;
+    right:30px;
+    width:100px;
+    z-index: 2;
+    img{
+        width:100px;
+    }
+    button{
+        width:110px;
+    }
+}
+
+.items-all-product-box{
+    display: flex;
+    justify-items: center;
+}
+.product-box {
+    display:flex;
+    flex: 1 1;
+    align-items: flex-start;
+    // height:220px;
+    padding:10% 0;
+     .not-selected{
+        border: 10px solid lightblue;
+        width:170px;
+        height:220px;
+    }
+    .selected{
+        transition:.4s;
+        border:10px solid blue;
+    }
+
+    .product-inf{
+        display:flex;
+        flex-direction: column;
+        height:220px;
+        li{
+            flex:1 1;
+        }
+        // RWD 改成直的即可適應上下高度
+       margin-left: 15px;
+       line-height:30px;
+       position: relative;
+       .stars-container{
+           position: relative;
+           display:flex;
+       }
+       .stars-container{
+        width:150px;
+        position: relative;
+        display:flex;
+        }
+       .ratings {
+        position: relative;
+        display: inline-block;
+        color: lightgray;
+        overflow: hidden;
+        text-shadow: .1em .1em gray;
+       }
+       
+       .full-stars {
+        left: 0;
+        top: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        color: gold;
+        display:block;
+        position:absolute;
+       }
+
+       .empty-stars:before, .full-stars:before {
+        content:"\2605\2605\2605\2605\2605";
+        font-size: 30px;
+        }
+        
+    
+    }
+    .cart-quantity{
+        display:flex;
+        input{
+            text-align:center;
+        }
+    }
+   
+    .show-type{
+        display: flex;
+        // justify-content: center;
+        .not-choose{
+            border:2px solid green;
+            border-radius: 35%;
+            display:inline-block;
+            padding:3px;
+            margin:5px;
+            cursor:pointer;
+            
+        }
+    }
+        .ischoose {
+            background-color :orange;
+        
+        }
+    
+}
+
+
+
+
+.highLight{
+    background: orange;
+    color:white;
+}
+
+
+.btn-showmore{
+    text-align: center;
+}
+
+

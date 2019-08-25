@@ -41,3 +41,12 @@ export default {
     },
 }
 </script>
+<style>
+    #shoppingcenter, #cart,#items,.items-page-background{
+        background-color: #FFEC91 !important;
+    }
+    /* .nav-tabs-background,.selectedAll-btn-background{
+        background-color:#F3FFBD !important;
+    } */
+
+</style>

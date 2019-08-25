@@ -1,6 +1,6 @@
 <template>
     <div id="header-navbar">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg header-navbar-style navbar-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -25,3 +25,10 @@
         </nav>
     </div>
 </template>
+<style>
+.header-navbar-style{
+    background:#3F3250 !important;
+    padding-bottom:0;
+    margin-bottom:0;
+}
+</style>

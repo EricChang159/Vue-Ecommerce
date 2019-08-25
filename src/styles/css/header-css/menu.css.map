@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,EAAE,CAAA;EACE,UAAU,EAAE,IAAI;CAEnB",
-    "sources": [
-        "c:/Users/ERIC/Desktop/vue-Ecommerce/src/styles/css/header-css/menu.scss"
-    ],
-    "names": [],
-    "file": "menu.css"
-}

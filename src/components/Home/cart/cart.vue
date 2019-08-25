@@ -3,7 +3,7 @@
         <!-- <button @click="getInformation">123</button> -->
         <router-view />
         <div class="container-fluid">
-                <div class="row bg-light no-items" v-show="newDatafromFather.length < 1" >
+                <div class="row  no-items" v-show="newDatafromFather.length < 1" >
                         <div class="col-md-12 " >there is no item in your cart</div>
                         <router-link to="/shoppingcenter/items">
                             <div>Get Some Of Your Favorite Movie</div>
@@ -14,11 +14,11 @@
                             
                         </router-link>                        
                     </div>
-                    <a href="#" ><div class="item-list-show" @click.prevent="showList">Item List</div></a>
-                    <div  class="check-items-listbox " :class="{ 'check-items-listbox-show' : flagShow }">  
+                    <a href="#" ><div class="cart-item-list-show" @click.prevent="showList">Item List</div></a>
+                    <div  class="cart-check-items-listbox " :class="{ 'cart-check-items-listbox-show' : flagShow }">  
                         <h4 style="text-align:center; color:brown">Item List</h4>
-                        <h4 class="item-list-close" @click.prevent="showList">X</h4>
-                        <div class="check-items-list " v-for="(list,index) in newDatafromFather" :key="index">
+                        <h4 class="cart-item-list-close" @click.prevent="showList">X</h4>
+                        <div class="cart-check-items-list " v-for="(list,index) in newDatafromFather" :key="index">
                             <ul>
                                 <li>{{list.title}}</li>
                                 <li>Type: {{list.activeTypes[0]}}</li>
@@ -28,10 +28,10 @@
                         </div>
                         <div style="text-align:right; color:rgb(223, 69, 13);"><h4>{{getTotalMoney}}</h4></div>
                     </div>  
-        <div class="row bg-light " v-for="(items,index) in newDatafromFather" :key="index" >
+        <div class="row cart-page-background" v-for="(items,index) in newDatafromFather" :key="index" >
                
-                <div class="col-lg-5 offset-lg-0 offset-sm-2  offset-0" >
-                    <div class="product-box">
+                <div class="col-lg-5 " style="padding:0 0 0 5%;" >
+                    <div class="cart-product-box">
                         <div class="img-icon">
                             <div class="cancel-selected" @click='cancelSelected(index)'>X</div>
                             <img class="not-selected" 
@@ -57,11 +57,13 @@
                             <!-- <li>Runtime:</li> -->
                             <!-- <li>Genres:</li> -->
                             <li>vote_average : {{items.vote_average}}</li>
-                            <span class="ratings">
-                            <li class="empty-stars"></li>
-                            <li class="full-stars" :style="{width:items.vote_average/10*100+'%'}"></li>
-                            </span>
-                            <div class="cart-quantity">
+                            <div class="stars-container">
+                                <span class="ratings">
+                                    <li class="empty-stars"></li>
+                                    <li class="full-stars" :style="{width:items.vote_average/10*100+'%'}" ></li>
+                                </span>
+                            </div>
+                            <div class="cart-cart-quantity">
                                 <button class="btn btn-success mr-2" @click="changeQuantity(items,1)">+</button>
                                 <input style="width:100px;" class="form-control col-3 " type="text" v-model="items.quantity" readonly>
                                 <button class="btn btn-success ml-2" @click="changeQuantity(items,-1)">-</button>
@@ -73,7 +75,7 @@
 
                     </div>
                 </div>
-                <div class="col-lg-7 product-story">
+                <div class="col-lg-7 cart-product-story">
                      <h4>{{items.title}}</h4>
                      <p> {{items.overview}} </p>
                 </div>
@@ -234,7 +236,7 @@ export default {
             //     console.log(this.movieData)
             // })
             // .then(console.log(this.movieData))
-            console.log(this.movieData,'2')
+            // console.log(this.movieData,'2')
             this.newDatafromFather = this.datafromFather
 
             if(this.newDatafromFather == []){
