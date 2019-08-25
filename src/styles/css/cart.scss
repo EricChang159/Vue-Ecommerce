@@ -31,9 +31,13 @@
     .product-inf{
         display:flex;
         flex-direction: column;
+        flex:0 1;
         padding-left:5%;
        line-height:30px;
        position: relative;
+       li:nth-child(1){
+        //    width:90%;
+       }
        .stars-container{
         width:150px;
         position: relative;
